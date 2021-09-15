@@ -5,28 +5,30 @@ class LikeTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-  # def setup
-  #   @user = User.new(name: 'test_user', email: 'test@email.com')
-  # end
+  def setup
+    @user = User.create(username: 'test', email: 'test@email.com', password: 'Sz5;&G3RpQ')
+    @post = @user.posts.build(body: 'Test Post')
+    @comment = @user.comments.build(body: 'Test comment', post: @post)
+  end
 
   test "does not save without a user" do
-    like_comment = Like.new(user_id: nil, likeable_type: 'Comment', likeable_id: 1)
-    like_post = Like.new(user_id: nil, likeable_type: 'Post', likeable_id: 1)
+    like_comment = @comment.likes.build(user: nil)
+    like_post = @post.likes.build(user: nil)
 
     refute like_comment.save, 'Needs a user to like a comment'
     refute like_post.save, 'Needs a user to like a post'
   end
 
   test "same comment cannot be liked twice by the same user" do
-    first_like = Like.new(user_id: 1, likeable_type: 'Comment', likeable_id: 1)
-    second_like = Like.new(user_id: 1, likeable_type: 'Comment', likeable_id: 1)
+    first_like = @comment.likes.build(user: @user)
+    second_like = @comment.likes.build(user: @user)
     assert first_like.save, 'Saves the first like'
     refute second_like.save, 'Does not save the second like'
   end
 
   test "same post cannot be liked twice by the same user" do
-    first_like = Like.new(user_id: 1, likeable_type: 'Post', likeable_id: 1)
-    second_like = Like.new(user_id: 1, likeable_type: 'Post', likeable_id: 1)
+    first_like = @post.likes.build(user: @user)
+    second_like = @post.likes.build(user: @user)
     assert first_like.save, 'Saves the first like'
     refute second_like.save, 'Does not save the second like'
   end

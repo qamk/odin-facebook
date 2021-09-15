@@ -6,7 +6,7 @@ class CommentTest < ActiveSupport::TestCase
   # end
 
   test "needs a body" do
-    user = User.create(username: 'test', email: 'test@email.com', encrypted_password: 'Sz5;&G3RpQ')
+    user = User.create(username: 'test', email: 'test@email.com', password: 'Sz5;&G3RpQ')
     post = Post.create(user: user, body: 'This is a test post')
     comment = Comment.new(body: nil, commenter: user, post: post)
     refute comment.save, 'Needs a body to save'

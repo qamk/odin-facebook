@@ -6,9 +6,9 @@ class PostTest < ActiveSupport::TestCase
   # end
 
   test "needs a body" do
-    user = User.create(username: 'test', email: 'test@email.com', encrypted_password: 'Sz5;&G3RpQ')
+    user = User.create(username: 'test', email: 'test@email.com', password: 'Sz5;&G3RpQ')
     post = Post.new(user: user)
-    refute post.save, 'Has no body'
+    refute post.save, 'Needs a body to save'
     assert_not_nil post.errors[:body], 'Has errors in the body'
   end
 
