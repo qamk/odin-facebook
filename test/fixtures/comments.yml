@@ -4,8 +4,23 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+first_comment:
+  commenter: second
+  post: first_post
+  body: HI. SORRY MY CAPS LOCKS IS STUCK, I AM NOT ANGRY. HI.
+
 # column: value
 #
-two: {}
+second_comment:
+  commenter: first
+  post: first_post
+  body: That's OK. Nice to meet you!
+
+third_comment:
+  post: first_post
+  body: I don't belong to anyone...
+
+fourth_comment:
+  user: first
+  body: I don't belong to any thing (post)...
 # column: value

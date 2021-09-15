@@ -4,7 +4,9 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+first_post:
+  body: Hi, my name is Hollana and this is my first post.
+  user: first
 # column: value
 #
 two: {}
