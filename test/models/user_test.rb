@@ -4,7 +4,8 @@ class UserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
-  test "has many friends" do
+  test "needs an email" do
     
   end
+
 end
