@@ -21,6 +21,6 @@ third_comment:
   body: I don't belong to anyone...
 
 fourth_comment:
-  user: first
+  commenter: first
   body: I don't belong to any thing (post)...
 # column: value

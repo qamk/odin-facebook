@@ -4,10 +4,25 @@ class UserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+
+  def setup
+    @user = User.new(username: 'test', email: 'test@email.com', encrypted_password: 'Sz5;&G3RpQ')
+  end
+
+  test "valid with a username, email and password" do
+    assert @user.save, 'Saves with a username and password'
+  end
+
   test "needs an email" do
-    user = User.new(username: 'name1')
-    refute user.save, 'It does not save'
-    assert_not_nil user.errors[:email], 'Email is needed'
+    @user.email = nil
+    refute @user.save, 'It does not save'
+    assert_not_nil @user.errors[:email], 'Email is needed'
+  end
+
+  test "needs a username" do
+    @user.username = nil
+    refute @user.save, 'It does not save'
+    assert_not_nil @user.errors[:username], 'Username is needed'
   end
 
 end

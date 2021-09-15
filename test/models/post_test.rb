@@ -6,7 +6,8 @@ class PostTest < ActiveSupport::TestCase
   # end
 
   test "needs a body" do
-    post = Post.new
+    user = User.create(username: 'test', email: 'test@email.com', encrypted_password: 'Sz5;&G3RpQ')
+    post = Post.new(user: user)
     refute post.save, 'Has no body'
     assert_not_nil post.errors[:body], 'Has errors in the body'
   end
@@ -14,21 +15,26 @@ class PostTest < ActiveSupport::TestCase
   test "belongs to a user" do
     post = posts(:first_post)
     user = users(:first)
-    assert post.belongs_to user, 'Post belongs to a user'
+    assert_equal post.user, user, 'Post belongs to a user'
   end
 
   test "can have comments" do
     post = posts(:first_post)
     comment = comments(:first_comment)
-    assert comment.belongs_to post, 'Comment is on a post'
+    assert_equal comment.post, post, 'Comment is on a post'
   end
 
   test "owner can comment" do
     owner = users(:first)
-    post = posts(:first_posts)
+    post = posts(:first_post)
     comment = comments(:second_comment)
-    assert comment.belongs_to post, 'Comment is on the post'
-    assert comment.belongs_to owner, 'Comment belongs to post owner'
-    assert post.belongs_to owner, 'Post and comment owner are the same'
+    assert_equal comment.post, post, 'Comment is on the post'
+    assert_equal comment.commenter, owner, 'Comment belongs to post owner'
+    assert_equal post.user, owner, 'Post and comment owner are the same'
   end
+
+  test "can be liked" do
+
+  end
+
 end
