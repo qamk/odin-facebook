@@ -4,16 +4,17 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-first_post_like:
-  likeable: first_post (Post)
-  user: second
-# column: value
-#
-first_comment_like:
-  likeable: second_comment (Comment)
-  user: second
 
-second_comment_like:
-  likeable: second_comment (Comment)
-  user: first
+# first_post_like:
+#   likeable: first_post (Post)
+#   user: second
+# # column: value
+# #
+# first_comment_like:
+#   likeable: second_comment (Comment)
+#   user: second
+
+# second_comment_like:
+#   likeable: second_comment (Comment)
+#   user: first
 # column: value

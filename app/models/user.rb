@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  before_save :strip_name
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :posts
@@ -12,4 +13,12 @@ class User < ApplicationRecord
   has_many :likes
 
   validates :username, presence: true
+
+  attr_accessor :username
+
+  private
+
+  def strip_name
+    username.strip!
+  end
 end

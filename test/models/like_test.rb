@@ -12,23 +12,23 @@ class LikeTest < ActiveSupport::TestCase
   end
 
   test "does not save without a user" do
-    like_comment = @comment.likes.build(user: nil)
-    like_post = @post.likes.build(user: nil)
+    like_comment = @comment.likes.new(user: nil)
+    like_post = @post.likes.new(user: nil)
 
     refute like_comment.save, 'Needs a user to like a comment'
     refute like_post.save, 'Needs a user to like a post'
   end
 
   test "same comment cannot be liked twice by the same user" do
-    first_like = @comment.likes.build(user: @user)
-    second_like = @comment.likes.build(user: @user)
+    first_like = @comment.likes.new(user: @user)
+    second_like = @comment.likes.new(user: @user)
     assert first_like.save, 'Saves the first like'
     refute second_like.save, 'Does not save the second like'
   end
 
   test "same post cannot be liked twice by the same user" do
-    first_like = @post.likes.build(user: @user)
-    second_like = @post.likes.build(user: @user)
+    first_like = @post.likes.new(user: @user)
+    second_like = @post.likes.new(user: @user)
     assert first_like.save, 'Saves the first like'
     refute second_like.save, 'Does not save the second like'
   end
