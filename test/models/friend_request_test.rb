@@ -24,4 +24,22 @@ class FriendRequestTest < ActiveSupport::TestCase
     refute repeat_fr.save, 'Does not save the second request'
   end
 
+  test "a request is deleted when it is accepted" do
+    @user1.sent_requests.build(receiver: @user2).save
+    valid_fr = @user1.sent_requests.first
+    assert valid_fr, 'Friend request is saved'
+    valid_fr.update(accepted: true)
+    fr = FriendRequest.first
+    refute fr, 'The friend request is no longer present'
+  end
+
+  test "a request is deleted when it is ignored" do
+    @user1.sent_requests.build(receiver: @user2).save
+    valid_fr = @user1.sent_requests.first
+    assert valid_fr, 'Friend request is saved'
+    valid_fr.update(accepted: false)
+    fr = FriendRequest.first
+    refute fr, 'The friend request is no longer present'
+  end
+
 end
