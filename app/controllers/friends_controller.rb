@@ -4,4 +4,9 @@ class FriendsController < ApplicationController
 
   def destroy
   end
+
+  def friends_list
+
+  end
+
 end

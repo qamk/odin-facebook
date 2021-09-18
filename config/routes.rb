@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
-  get 'friends/create'
-  get 'friends/destroy'
+  resources :likes, only: %i[create destroy]
+  resources :friends, only: %i[create destroy]
+  get '/friends-list', to: 'friends#friends_list'
+  resources :friend_requests, only: %i[create update destroy]
+  resources :posts, except: %i[index new] do
+    resources :comments, only: %i[edit create update destroy]
+  end
+  get '/notifications', to: 'users#notifications'
+  get '/timeline', to: 'users#show'
+  get '/timeline/edit', to: 'users#edit'
+  match '/timeline', to: 'users#update', via: %i[put patch]
+
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
