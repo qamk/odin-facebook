@@ -19,7 +19,8 @@ class FriendTest < ActiveSupport::TestCase
     @user1.sent_requests.build(receiver: @user2).save
     friend_request = @user1.sent_requests.first
     friend_request.update(accepted: true)
-    assert_equal @user1.friends, @user2.accepted_requests, 'User 2 accepts and makes a new friend!'
+    assert_not_empty @user2.accepted_requests, 'User 2 has a friend'
+    assert_equal @user1.friends, @user2.accepted_requests, 'User 2\'s friend is User 1!'
   end
 
   test "cannot have duplicate records" do

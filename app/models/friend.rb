@@ -5,6 +5,10 @@ class Friend < ApplicationRecord
   validates :main_user, uniqueness: { scope: :friend }
   validate :existing_request?, on: :create
 
+  scope :friends_list, ->(main_user, page, per_page) {
+    where(main_user: main_user).offset(page * per_page).limit(per_page)
+  }
+
   private
 
   def existing_request?

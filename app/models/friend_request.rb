@@ -6,6 +6,10 @@ class FriendRequest < ApplicationRecord
   validates :sender, uniqueness: { scope: :receiver }
   validate :also_receiver?, on: :create
 
+  scope :for_page, ->(page, num_per_page) {
+    order(created_at: :desc).offset(page * num_per_page).limit(num_per_page)
+  }
+
   private
 
   def also_receiver?
