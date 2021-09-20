@@ -5,8 +5,10 @@ class Friend < ApplicationRecord
   validates :main_user, uniqueness: { scope: :friend }
   validate :existing_request?, on: :create
 
-  scope :friends_list, ->(main_user, page, per_page) {
-    where(main_user: main_user).offset(page * per_page).limit(per_page)
+  scope :friends_of, ->(main_user) { where(main_user: main_user).or(Friend.where(friend: main_user)) }
+
+  scope :friends_list_paginated, ->(main_user, page, per_page) {
+    friends_of(main_user).order(:username).offset(page * per_page).limit(per_page)
   }
 
   private

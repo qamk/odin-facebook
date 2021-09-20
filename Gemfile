@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 # My chosen gems for this task
 gem 'devise'
 gem 'better_errors', group: :development
+gem 'binding_of_caller', group: :development
 gem 'bulma-rails'
 gem 'letter_opener', group: :development
 # gem 'omniauth-facebook'

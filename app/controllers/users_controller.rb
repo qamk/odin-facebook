@@ -5,12 +5,13 @@ class UsersController < ApplicationController
 
   # GET /feed (root)
   def feed
-
+    friends = Friend.friends_of(current_user).includes(:main_user, :friend).disctinct.pluck(:username)
+    @feed_posts = Post.where(user: friends).includes(:likes, :users)
   end
   
   # GET /users/:id
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]).includes(:posts)
   end
 
   # GET /timeline

@@ -1,22 +1,29 @@
 class LikesController < ApplicationController
 
-  # def create
-  #   @new_like = .build(like_params)
-  #   if @new_like.save
-  #     redirect_to likes_path, notice: 'like sent'
-  #   else
-  #     flash[:error] = 'Failed to send like'
-  #     redirect_to root_page
-  #   end
-  # end
+  # 
+  def create
+    @new_like = Like.new(like_params)
+    if @new_like.save
+      redirect_to :back, notice: 'like sent'
+    else
+      flash[:error] = 'Failed to send like'
+      redirect_to :back
+    end
+  end
 
-  # def update
-  #   @like = Like.find(params[:id])
-  #   if @like.update(like_parms)
-  #     redirect_to root_path, notice: 'Successfully made'
-  #   else
-  #     flash[:error] = 'Failed to respond to friend like'
-  #     redirect_to :back
-  #   end
-  # end
+  def destroy
+    @like = Like.find_by(params[:like])
+    if @like.destroy
+      redirect_to :back, notice: 'Removed like'
+    else
+      flash[:error] = 'Failed to remove like'
+      redirect_to :back
+    end
+  end
+
+  private
+
+  def like_params
+    params.require(:like).permit(:likeable_type, :likeable_id, :user)
+  end
 end

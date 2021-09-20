@@ -15,7 +15,7 @@ class FriendsController < ApplicationController
 
   def friends_list
     @page = params.fetch(:page, 0).to_i
-    @friends_list = Friend.includes(:users).friends_list(current_user, @page, FRIENDS_PER_PAGE)
+    @friends_list = Friend.includes(:users).friends_list_paginated(current_user, @page, FRIENDS_PER_PAGE)
   end
 
   private
