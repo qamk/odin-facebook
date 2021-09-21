@@ -1,0 +1,23 @@
+<article class="media">
+  <%= form_with model: Post.new do |form| %>
+    <figure class="media-left">
+      image here
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <div class="field">
+          <div class="control">
+            <%= form.text_area :body, size: '40x5', class: 'textarea', placeholder: 'INPUT YOUR THOUGHTS HUMAN' %>
+          </div>
+        </div>
+      </div>
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <%= form.submit class: 'button is-success is-light is-inverted' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</article>

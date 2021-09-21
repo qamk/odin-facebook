@@ -1,23 +1,29 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :grab_user, except: %i[show]
 
   TIMELINE_POSTS_PER_PAGE = 8
+  FEED_POSTS_PER_PAGE = 16
+  MINI_FRIENDS_LIST = 6
 
   # GET /feed (root)
   def feed
-    friends = Friend.friends_of(current_user).includes(:main_user, :friend).disctinct.pluck(:username)
+    friends = find_user_friend_ids(current_user)
     @feed_posts = Post.where(user: friends).includes(:likes, :users)
   end
   
   # GET /users/:id
   def show
     @user = User.find(params[:id]).includes(:posts)
+    grab_post_info
+    render :timeline
   end
 
   # GET /timeline
   def timeline
-    @page = params.fetch(:page, 0).to_i
-    @posts = @user.posts.for_page(@page, TIMELINE_POSTS_PER_PAGE)
+    grab_mini_friends_list
+    grab_post_info
+    grab_who_to_add
   end
 
   # GET /timeline/edit
@@ -42,6 +48,26 @@ class UsersController < ApplicationController
 
   def grab_user
     @user = current_user
+  end
+
+  def find_user_friend_ids(user)
+    Friend.friends_of(user).pluck(:main_user_id, :friend_id).flatten - [user.id]
+  end
+
+  def grab_mini_friends_list
+    friends_list_ids = find_user_friend_ids(current_user)
+    @friends_list = User.list_users_in_id_collection(friends_list_ids)
+  end
+
+  def grab_who_to_add
+    friends_and_self = find_user_friend_ids(current_user) << current_user.id
+    @who_to_add = User.where.not(id: friends_and_self)
+  end
+
+  def grab_post_info
+    @page = params.fetch(:page, 0).to_i
+    @posts = @user.posts.for_page(@page, TIMELINE_POSTS_PER_PAGE).includes(:users)
+    @upcoming_posts = @user.posts.for_page(@page + 1, TIMELINE_POSTS_PER_PAGE)
   end
 
   def update_params

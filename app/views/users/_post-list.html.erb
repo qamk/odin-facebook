@@ -1,0 +1,22 @@
+<% posts.each do |post| %>
+  <div class="media">
+    <div class="media-content">
+      <div class="content">
+        <p class="has-text-weight-semibold"><%= post.user.username %></p>
+        <p class="has-text-weight-normal"><%= post.body %></p>
+      </div>
+      <nav class="level is-mobile">
+        <div class="level-item">
+          <%= link_to likes_path(likeable_type: 'post', likeable_id: post.id, user: current_user) do %>
+            <i>like icon</i>
+          <% end %>
+        </div>
+        <div class="level-item">
+          <%= link_to post_path(post) do %>
+            <i>comment icon</i>
+          <% end %>
+        </div>
+      </nav>
+    </div>
+  </div>
+<% end %>

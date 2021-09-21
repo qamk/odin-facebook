@@ -18,6 +18,8 @@ class User < ApplicationRecord
   validates :bio, length: { maximum: 275 }
   validates :email, format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
+  scope :list_users_in_id_collection, ->(id_collection) { where(id: id_collection) }
+
   attr_accessor :username
 
   private

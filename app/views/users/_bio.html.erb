@@ -1,0 +1,9 @@
+<article class="box">
+  <% if bio.nil? %>
+    <p class="content has-text-weight-light has-text-centered"> <em>~~Nothing to see here~~</em> </p>
+  <% else %>
+    <p class="content has-text-weight-medium has-text-justified">
+      <%= bio %>
+    </p>
+  <% end %>
+</article>

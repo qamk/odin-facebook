@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :comments, only: %i[edit create update destroy]
   end
   get '/notifications', to: 'users#notifications'
-  get '/timeline', to: 'users#show'
+  get '/timeline', to: 'users#timeline'
   get '/timeline/edit', to: 'users#edit'
   match '/timeline', to: 'users#update', via: %i[put patch]
 

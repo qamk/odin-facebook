@@ -1,0 +1,37 @@
+<section class="section">
+  <div class="container">
+    <div class="box">
+    </div>
+    <div class="columns is-multiline">
+      <div class="column is-3">
+        <%= render 'bio', bio: @user.bio %>
+        <%# render 'friends-list', friends_list: @friends_list %>
+      </div>
+      <div class="column is-6">
+        <%= render 'posts/post-form' %>
+        <%= render 'post-list', posts: @posts %>
+          <nav class="level">
+            <% unless @page.zero? %>
+              <div class="level-left">
+                <div class="level-item">
+                  <%= link_to 'Previous Page', timeline_path(page: @page - 1), class: 'pagination-previous' %>
+                </div>
+              </div>
+            <% end %>
+            <% unless @upcoming_posts.empty? %>
+              <div class="level-right">
+                <div class="level-item">
+                  <%= link_to 'Next Page', timeline_path(page: @page + 1), class: 'pagination-next' %>
+                </div>
+              </div>
+            <% end %>
+          </nav>
+      </div>
+      <div class="column is-3">
+        <% unless @who_to_add.empty? %>
+          <%= render 'who-to-add', who_to_add: @who_to_add %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
