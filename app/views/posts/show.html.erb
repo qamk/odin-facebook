@@ -1,0 +1,29 @@
+<section class="section">
+  <div class="container">
+    <article class="level">
+        <div class="level-item">
+          <div class="media">
+            <div class="media-left">
+              <figure>INSERT IMAGE HERE</figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p class="has-text-weight-semibold"><%= @post.user.username %></p>
+                <p class="has-text-weight-normal has-text-left"><%= @post.body %></p>
+              </div>
+              <nav class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <%= link_to likes_path(likeable_type: 'post', likeable_id: @post.id, user: current_user) do %>
+                      <i>like icon</i>
+                    <% end %>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+    </article>
+    <%= render 'comments/comment-list', comments: @comments, post: @post %>
+  </div>
+</section>

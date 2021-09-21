@@ -1,0 +1,15 @@
+<article>
+  <br>
+  <%= form_with model: [post, Comment.new] do |form| %>
+    <%= form.hidden_field :post_id, value: post.id %>
+    <%= form.hidden_field :commenter_id, value: current_user.id %>
+    <div class="field">
+      <%= form.label :body, 'Enter a new comment!', class: 'label' %>
+      <div class="control">
+        <%= form.text_area :body, class: 'textarea', placeholder: 'Speak your peace' %>
+      </div>
+    </div>
+
+    <%= form.submit 'New comment', class: 'button is-success is-dark' %>
+  <% end %>
+</article>

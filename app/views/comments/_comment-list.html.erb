@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="level">
+    <div class="level-item">
+      <div class="column is-4">
+        <% comments.each do |comment| %>
+          <article class="media">
+            <%# <div class="media-left">
+              <figure>INSERT IMAGE HERE</figure>
+            </div> %>
+            <div class="media-content">
+              <div class="content">
+                <p class="has-text-weight-light">
+                  <strong><%= comment.commenter.username %></strong> | 
+                  <%= link_to user_path(comment.commenter) do %>
+                    <small>Profile</small>
+                  <% end %>
+                </p>
+                <p class="has-text-weight-normal"><%= comment.body %></p>
+              </div>
+            </div>
+            <div class="media-right">
+              <div class="content">
+                <small class="has-text-weight-light"><%= time_ago_in_words(comment.created_at.time) %> ago</small>
+              </div>
+            </div>
+          </article>
+        <% end %>
+        <%= render 'comments/comment-form', post: post %>
+      </div>
+    </div>
+  </div>
+</div>

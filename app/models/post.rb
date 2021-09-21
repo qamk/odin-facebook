@@ -6,5 +6,5 @@ class Post < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: 500 }
 
-  scope :for_page, ->(page, num_posts) { offset(page * num_posts).limit(num_posts) }
+  scope :for_page, ->(page, num_posts) { order(created_at: :desc).offset(page * num_posts).limit(num_posts) }
 end

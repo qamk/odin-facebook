@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :owner?, except: %i[show create]
 
   def show
-    @comments = @post.comments.includes(:likes)
+    @comments = @post.comments.includes(:likes, :commenter)
   end
 
   def edit
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
   end
 
   def grab_post
-    @post = params[:id]
+    @post = Post.find(params[:id])
   end
 
   def post_params

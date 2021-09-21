@@ -1,9 +1,12 @@
-<article class="box">
+<article class="content">
   <% if bio.nil? %>
     <p class="content has-text-weight-light has-text-centered"> <em>~~Nothing to see here~~</em> </p>
   <% else %>
-    <p class="content has-text-weight-medium has-text-justified">
+    <p class="content has-text-weight-light is-uppercase has-text-justified">
       <%= bio %>
     </p>
   <% end %>
 </article>
+  <% if user == current_user %>
+    <%= link_to 'Edit bio', timeline_edit_path, class: 'button is-info is-inverted is-normal' %>
+  <% end %>

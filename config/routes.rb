@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   get '/notifications', to: 'users#notifications'
   get '/timeline', to: 'users#timeline'
+  get '/users/:id/timeline', to: 'users#show', as: 'user'
   get '/timeline/edit', to: 'users#edit'
   match '/timeline', to: 'users#update', via: %i[put patch]
 

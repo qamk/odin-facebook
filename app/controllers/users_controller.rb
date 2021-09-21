@@ -14,8 +14,8 @@ class UsersController < ApplicationController
   
   # GET /users/:id
   def show
-    @user = User.find(params[:id]).includes(:posts)
-    grab_post_info
+    @user = User.find(params[:id])
+    timeline
     render :timeline
   end
 
@@ -28,14 +28,16 @@ class UsersController < ApplicationController
 
   # GET /timeline/edit
   def edit
+    timeline
+    render :timeline
   end
 
   # PUT or PATCH /timeline
   def update
     if @user.update(update_params)
-      redirect timeline_path, notice: 'Successfully updated timeline'
+      redirect_to timeline_path, notice: 'Successfully updated timeline'
     else
-      flash.now[:error] = 'Failed to updat timeline. Please check error messages.'
+      flash.now[:error] = 'Failed to update timeline. Please check error messages.'
       render 'timeline'
     end
   end
@@ -66,7 +68,7 @@ class UsersController < ApplicationController
 
   def grab_post_info
     @page = params.fetch(:page, 0).to_i
-    @posts = @user.posts.for_page(@page, TIMELINE_POSTS_PER_PAGE).includes(:users)
+    @posts = @user.posts.for_page(@page, TIMELINE_POSTS_PER_PAGE).includes(:user)
     @upcoming_posts = @user.posts.for_page(@page + 1, TIMELINE_POSTS_PER_PAGE)
   end
 
