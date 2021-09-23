@@ -1,0 +1,38 @@
+<div class="level">
+  <div class="level-item">
+    <h3 class="title is-3 has-text-weight-normal">Friend Requests</h3>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="tabs is-centered is-large">
+      <ul>
+        <li class="<%= 'is-active' unless params[:sent] %>"><%= link_to 'Received', friend_requests_path %></li>
+        <li class="<%= params[:sent]%>"><%= link_to 'Sent', friend_requests_path(sent: 'is-active') %></li>
+      </ul>
+    </div>
+    <ul>
+      <% @requests.each do |request| %>
+        <article class="media">
+          <div class="media-left">
+            <figure>INSERT IMAGE HERE</figure>
+          </div>
+          <media-content>
+            <div class="content">
+              <strong><%= request.username %></strong> | <small> <%= link_to 'Profile', user_path(request) %> </small> 
+            </div>
+            <div class="level is-mobile">
+              <% unless params[:sent] %>
+                <div class="level-left">
+                  <div class="level-item">Add button</div>
+                  <div class="level-item">Ignore button</div>
+                </div>
+              <% end %>
+            </div>
+          </media-content>
+        </article>
+      <% end %>
+    </ul>
+  </div>
+</section>

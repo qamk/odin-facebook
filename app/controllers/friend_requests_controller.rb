@@ -4,8 +4,7 @@ class FriendRequestsController < ApplicationController
 
   def index
     @page = params.fetch(:page, 0).to_i
-    @friend_requests = current_user.received_requests
-    @pending_requests = current_user.sent_requests.for_page(@page, REQUESTS_PER_PAGE)
+    grab_data_for_tab
   end
 
   def create
@@ -32,8 +31,18 @@ class FriendRequestsController < ApplicationController
 
   private
 
+  def grab_data_for_tab
+    friend_request_ids =
+      if params[:sent]
+        FriendRequest.sender_only(current_user.id).pluck(:receiver_id)
+      else
+        FriendRequest.receiver_only(current_user.id).pluck(:sender_id)
+      end
+    @requests = query_user_ids(friend_request_ids)
+  end
+
   def request_params
-    params.require(:friend_request).permit(:sender, :receiver, :accepted)
+    params.require(:friend_request).permit(:sender_id, :receiver_id, :accepted)
   end
 
 end

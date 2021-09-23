@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :grab_user, except: %i[show]
+  before_action :grab_user
 
   TIMELINE_POSTS_PER_PAGE = 8
   FEED_POSTS_PER_PAGE = 16
@@ -14,9 +14,8 @@ class UsersController < ApplicationController
     @upcoming_posts = Post.where(user: friends).for_page(@page + 1, FEED_POSTS_PER_PAGE)
   end
   
-  # GET /users/:id
+  # GET /users/:id/timeline
   def show
-    @user = User.find(params[:id])
     timeline
     render :timeline
   end
@@ -51,21 +50,30 @@ class UsersController < ApplicationController
   private
 
   def grab_user
-    @user = current_user
+    @user = User.find_by(id: params[:id]) || current_user
   end
 
-  def find_user_friend_ids(user)
+  def find_user_friend_ids(user = @user)
     Friend.friends_of(user).pluck(:main_user_id, :friend_id).flatten - [user.id]
   end
 
+  # Returns a 'User' collection containing active friend requests for @user
+  def grab_pending_friend_requests
+    requests_list_ids = FriendRequest.open_requests(current_user.id).pluck(:sender_id, :receiver_id).flatten
+    query_user_ids(requests_list_ids)
+  end
+
+  # Returns a 'User' collection containing friends of @user
   def grab_mini_friends_list
-    friends_list_ids = find_user_friend_ids(current_user)
-    @friends_list = User.list_users_in_id_collection(friends_list_ids)
+    friends_list_ids = find_user_friend_ids
+    @friends_list = query_user_ids(friends_list_ids)
   end
 
   def grab_who_to_add
     friends_and_self = find_user_friend_ids(current_user) << current_user.id
-    @who_to_add = User.where.not(id: friends_and_self)
+    requested = grab_pending_friend_requests
+    users_to_avoid = friends_and_self.concat(requested)
+    @who_to_add = User.where.not(id: users_to_avoid)
   end
 
   def grab_post_info

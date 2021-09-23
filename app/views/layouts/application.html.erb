@@ -41,6 +41,9 @@
               <%= link_to current_user.username, current_user, class: "button is-light is-outlined" %>
             </div>
             <div class="navbar-item">
+              <%= link_to 'Friend Requests', friend_requests_path, class: "button is-primary is-outlined" %>
+            </div>
+            <div class="navbar-item">
               <%= link_to "Edit Account", edit_user_registration_path, class: "button is-warning is-outlined" %>
             </div>
             <div class="navbar-item">

@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
   end
 
+  def query_user_ids(collection)
+    User.list_users_in_id_collection(collection)
+  end
+
 end

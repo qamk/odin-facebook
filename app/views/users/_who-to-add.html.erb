@@ -1,8 +1,8 @@
 <div class="container">
   <% who_to_add.each do |suggestion| %>
-    <%= form_with model: :friend_request do |form| %>
-      <%= form.hidden_field :sender, value: current_user %>
-      <%= form.hidden_field :receiver, value: suggestion %>
+    <%= form_with model: FriendRequest.new do |form| %>
+      <%= form.hidden_field :sender_id, value: current_user.id %>
+      <%= form.hidden_field :receiver_id, value: suggestion.id %>
       <article class="media">
         <div class="media-content">
           <p class="content">

@@ -17,6 +17,7 @@ class User < ApplicationRecord
   validates :email, format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
   scope :list_users_in_id_collection, ->(id_collection) { where(id: id_collection) }
+  scope :except_user, ->(user) { where.not(id: user.id) }
 
   private
 

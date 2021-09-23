@@ -10,6 +10,18 @@ class FriendRequest < ApplicationRecord
     order(created_at: :desc).offset(page * num_per_page).limit(num_per_page)
   }
 
+  scope :open_requests, ->(user_id) {
+    where('sender_id = :user_id OR receiver_id = :user_id', user_id: user_id)
+  }
+
+  scope :sender_only, ->(user_id) {
+    where('sender_id = :user_id', user_id: user_id)
+  }
+
+  scope :receiver_only, ->(user_id) {
+    where('receiver_id = :user_id', user_id: user_id)
+  }
+
   private
 
   def also_receiver?
