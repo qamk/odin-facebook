@@ -20,7 +20,7 @@ class FriendRequestsController < ApplicationController
   def update
     @friend_request = FriendRequest.find(params[:id])
     if @friend_request.update(request_parms)
-      redirect_to root_path, notice: 'Successfully made'
+      redirect_to root_path, notice: 'Made a new friend :-)'
     else
       flash[:error] = 'Failed to respond to friend request'
       redirect_back fallback_location: '/', allow_other_hosts: false
@@ -33,7 +33,7 @@ class FriendRequestsController < ApplicationController
 
   def grab_data_for_tab
     friend_request_ids =
-      if params[:sent]
+      if params[:sent] == 'is-active'
         FriendRequest.sender_only(current_user.id).pluck(:receiver_id)
       else
         FriendRequest.receiver_only(current_user.id).pluck(:sender_id)

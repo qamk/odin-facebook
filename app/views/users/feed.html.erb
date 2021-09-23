@@ -27,6 +27,17 @@
             </nav>
 
     </div>
-    <div class="column is-3"></div>
+    <div class="column is-3">
+      <header class="heading is-size-4 has-text-weight-normal">"Suggested" Friends</header>
+      <% if @who_to_add.empty? %>
+        <p class="content has-text-weight-light has-text-centered"> 
+          <em>~~No suggestions at the moment~~</em>
+        </p>
+      <% else %>
+        <div class="container">
+          <%= render 'who-to-add', who_to_add: @who_to_add %>
+        </div>
+      <% end %>
+      </div>
   </div>
 </div>

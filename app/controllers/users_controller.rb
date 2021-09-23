@@ -1,19 +1,29 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :grab_user
+  before_action :paginate, except: %i[update]
 
   TIMELINE_POSTS_PER_PAGE = 8
   FEED_POSTS_PER_PAGE = 16
+  USER_INDEX_PER_PAGE = 30
   MINI_FRIENDS_LIST = 6
 
   # GET /feed (root)
   def feed
-    @page = params.fetch(:page, 0).to_i
+    grab_who_to_add
     friends = find_user_friend_ids(current_user) << current_user.id
     @feed_posts = Post.where(user: friends).for_page(@page, FEED_POSTS_PER_PAGE).includes(:likes, :user)
     @upcoming_posts = Post.where(user: friends).for_page(@page + 1, FEED_POSTS_PER_PAGE)
   end
-  
+
+  # GET /users
+  def index
+    @users = \
+      User.search(params[:query]).for_page(@page, USER_INDEX_PER_PAGE).except_user(current_user).includes(:friends)
+    grab_mini_friends_list
+    @requests = grab_pending_friend_requests
+  end
+
   # GET /users/:id/timeline
   def show
     timeline
@@ -43,14 +53,14 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /notifications
-  def notifications
-  end
-
   private
 
   def grab_user
     @user = User.find_by(id: params[:id]) || current_user
+  end
+
+  def paginate
+    @page = params.fetch(:page, 0).to_i
   end
 
   def find_user_friend_ids(user = @user)
@@ -84,5 +94,9 @@ class UsersController < ApplicationController
 
   def update_params
     params.require(:user).permit(:bio)
+  end
+
+  def search_params
+    params.requre(:serach).permit(:query)
   end
 end

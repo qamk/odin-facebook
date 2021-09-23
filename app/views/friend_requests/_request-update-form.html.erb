@@ -1,0 +1,6 @@
+<%= form with model: request do |form| %>
+  <%= form.hidden_field :accepted, value: (response == 'Accept') %>
+  <% button_tag type: 'submit' class: 'button is-success-light' do %>
+    <p><%= response %> request</p>
+  <% end %>
+<% end %>

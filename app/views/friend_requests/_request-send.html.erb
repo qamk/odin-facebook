@@ -1,0 +1,9 @@
+<%= form_with model: FriendRequest.new do |form| %>
+  <%= form.hidden_field :sender_id, value: current_user.id %>
+  <%= form.hidden_field :receiver_id, value: user.id %>
+  <div class="level">
+    <div class="level-item">
+      <%= form.submit 'Add Friend', class: 'button is-small is-primary'%>
+    </div>
+  </div>
+<% end %>

@@ -19,14 +19,18 @@
             <figure>INSERT IMAGE HERE</figure>
           </div>
           <media-content>
-            <div class="content">
+            <div class="content is-large">
               <strong><%= request.username %></strong> | <small> <%= link_to 'Profile', user_path(request) %> </small> 
             </div>
             <div class="level is-mobile">
-              <% unless params[:sent] %>
+              <% unless params[:sent] == 'is-active' %>
                 <div class="level-left">
-                  <div class="level-item">Add button</div>
-                  <div class="level-item">Ignore button</div>
+                  <div class="level-item">
+                    <%= render 'request-update-form', request: request, response: 'Accept' %>
+                  </div>
+                  <div class="level-item">
+                    <%= render 'request-update-form', request: request, response: 'Ignore' %>
+                  </div>
                 </div>
               <% end %>
             </div>

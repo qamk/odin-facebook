@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   before_validation :strip_name, :down_case_email
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :posts, dependent: :destroy
@@ -18,6 +20,14 @@ class User < ApplicationRecord
 
   scope :list_users_in_id_collection, ->(id_collection) { where(id: id_collection) }
   scope :except_user, ->(user) { where.not(id: user.id) }
+  scope :for_page, ->(page, num_users) { order(:username, :created_at).offset(num_users * page).limit(num_users) }
+
+  # Return users according to query or return all users
+  def self.search(query = nil)
+    search_with = query || ''
+    search_with = "%#{search_with}%"
+    where("username LIKE ?", search_with)
+  end
 
   private
 

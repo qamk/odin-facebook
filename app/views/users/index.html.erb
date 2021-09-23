@@ -1,0 +1,48 @@
+<section class="section">
+  <div class="container">
+    <div class="level">
+      <div class="level-item">
+        <article>
+          <table class="table is-narrow is-hoverable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th><abbr title="Number of Friends">Num. Friends</abbr></th>
+                <th><abbr title="Joined since">Joined</abbr></th>
+                <th>Friends?</th>
+              </tr>
+            </thead>
+            <% if @users.size >= 15 %>
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th><abbr title="Number of Friends">Num. Friends</abbr></th>
+                  <th><abbr title="Joined since">Joined</abbr></th>
+                  <th>Friends?</th>
+                </tr>
+              </tfoot>
+            <% end %>
+            <tbody>
+              <tr>
+                <% @users.each do |user| %>
+                  <td><%= user.username %></td>
+                  <td><%= user.friends.count %></td>
+                  <td><%= time_ago_in_words(user.created_at) %></td>
+                  <td>
+                    <% if  @requests.include?(user) %>
+                      A request is pending!
+                    <% elsif @friends_list.include?(user) %>
+                      Already friends!
+                    <% else %>
+                      <%= render 'friend_requests/requests-send', user: user %>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

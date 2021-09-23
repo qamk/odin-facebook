@@ -21,7 +21,7 @@ class PostsController < ApplicationController
   def create
     @new_post = current_user.posts.build(post_params)
     if @new_post.save
-      redirect_to post_path(@new_post), notice: 'Successfully created post'
+      redirect_back fallback_location: '/', allow_other_hosts: false, notice: 'Successfully created post'
     else
       flash[:error] = 'Failed to create new post'
       redirect_to root_path
