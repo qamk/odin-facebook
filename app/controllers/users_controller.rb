@@ -8,8 +8,10 @@ class UsersController < ApplicationController
 
   # GET /feed (root)
   def feed
-    friends = find_user_friend_ids(current_user)
-    @feed_posts = Post.where(user: friends).includes(:likes, :users)
+    @page = params.fetch(:page, 0).to_i
+    friends = find_user_friend_ids(current_user) << current_user.id
+    @feed_posts = Post.where(user: friends).for_page(@page, FEED_POSTS_PER_PAGE).includes(:likes, :user)
+    @upcoming_posts = Post.where(user: friends).for_page(@page + 1, FEED_POSTS_PER_PAGE)
   end
   
   # GET /users/:id

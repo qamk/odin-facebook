@@ -24,7 +24,7 @@ class FriendRequestsController < ApplicationController
       redirect_to root_path, notice: 'Successfully made'
     else
       flash[:error] = 'Failed to respond to friend request'
-      redirect_to :back
+      redirect_back fallback_location: '/', allow_other_hosts: false
     end
   end
 

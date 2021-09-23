@@ -11,6 +11,53 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if flash[:notice] %>
+      <div class="notification is-info">
+        <p class="content is-medium"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="notification is-warning">
+        <p class="content is-medium"><%= alert %></p>
+      </div>  
+    <% end %>
+    <% if flash[:error] %>
+      <div class="notification is-danger">
+        <p class="content is-medium"><%= flash[:error] %></p>
+      </div>  
+    <% end %>
+    <nav class="navbar is-info">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <%= link_to root_path do %>
+            <h4 class="title is-4 is-family-code has-text-weight-light has-text-white ml-4">OdinFacebook</h4>
+          <% end %>
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="buttons">
+          <% if user_signed_in? %>
+            <div class="navbar-item">
+              <%= link_to current_user.username, current_user, class: "button is-light is-outlined" %>
+            </div>
+            <div class="navbar-item">
+              <%= link_to "Edit Account", edit_user_registration_path, class: "button is-warning is-outlined" %>
+            </div>
+            <div class="navbar-item">
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-danger is-outlined" %>
+            </div>
+          <% else %>
+            <div class="navbar-item">
+              <%= link_to 'Sign In', new_user_session_path, class: "button is-info is-outlined" %>
+            </div>
+            <div class="navbar-item">
+              <%= link_to 'Sign Up', new_user_registration_path, class: "button is-success is-outlined" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+      <%= yield %>
+    </div>
   </body>
 </html>

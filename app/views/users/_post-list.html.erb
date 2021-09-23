@@ -1,4 +1,5 @@
   <% posts.each do |post| %>
+
       <article class="media">
         <div class="media-left">
           <figure>INSERT IMAGE HERE</figure>
@@ -10,9 +11,7 @@
           </div>
           <nav class="level is-mobile">
             <div class="level-item">
-              <%= link_to likes_path(likeable_type: 'post', likeable_id: post.id, user: current_user) do %>
-                <i>like icon <%= post.likes.size %></i>
-              <% end %>
+              <%= render 'likes/like-form', type: post %>
             </div>
             <div class="level-item">
               <%= link_to post_path(post) do %>

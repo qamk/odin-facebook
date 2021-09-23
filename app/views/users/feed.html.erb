@@ -1,0 +1,32 @@
+<div class="level">
+  <div class="level-item">
+    <header class="heading is-size-4 has-text-weight-normal mb-2"><%= @user.username %>'s Feed</header>
+  </div>
+</div>
+<div class="container">
+  <div class="columns">
+    <div class="column is-9">
+          <%= render 'posts/post-form' %>
+          <br>
+          <%= render 'post-list', posts: @feed_posts %>
+            <nav class="level">
+              <% unless @page.zero? %>
+                <div class="level-left">
+                  <div class="level-item">
+                    <%= link_to 'Previous Page', timeline_path(page: @page - 1), class: 'pagination-previous' %>
+                  </div>
+                </div>
+              <% end %>
+              <% unless @upcoming_posts.empty? %>
+                <div class="level-right">
+                  <div class="level-item">
+                    <%= link_to 'Next Page', timeline_path(page: @page + 1), class: 'pagination-next' %>
+                  </div>
+                </div>
+              <% end %>
+            </nav>
+
+    </div>
+    <div class="column is-3"></div>
+  </div>
+</div>
