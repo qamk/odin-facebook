@@ -11,7 +11,7 @@
           <%= render 'bio', bio: @user.bio, user: @user %>
         <% end %>
         <header class="heading is-size-3 has-text-weight-normal">Friends List</header>
-        <%# render 'friends-list', friends_list: @friends_list %>
+        <%= render 'friends-list-sample', friends_list: @friends_list %>
       </div>
       <div class="column is-6">
         <%= render 'posts/post-form' %>

@@ -38,7 +38,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <div class="navbar-link">
             <div class="navbar-item has-text-weight-normal">
-              Options
+              <%= current_user.username %>
             </div>
           </div>
           <div class="navbar-dropdown">
@@ -49,10 +49,13 @@
               <%= link_to friend_requests_path, class: 'navbar-item' do %>
                 <p class="content is-medium">Friend Requests</p>
               <% end %>
+              <%= link_to friends_list_path, class: 'navbar-item' do %>
+                <p class="content is-medium">Friends List</p>
+              <% end %>
+              <hr class="navbar-divider">
               <%= link_to users_path, class: 'navbar-item' do %>
                 <p class="content is-medium">Users Index</p>
               <% end %>
-              <hr class="navbar-divider">
               <%= link_to edit_user_registration_path, class: 'navbar-item' do %>
                 <p class="content is-medium">Edit Account</p>
               <% end %>
@@ -71,6 +74,7 @@
         </div>
       </div>
     </nav>
+     <hr style="border-width:1px;">
       <%= yield %>
     </div>
   </body>

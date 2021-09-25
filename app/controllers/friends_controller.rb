@@ -15,10 +15,18 @@ class FriendsController < ApplicationController
 
   def friends_list
     @page = params.fetch(:page, 0).to_i
-    @friends_list = Friend.includes(:users).friends_list_paginated(current_user, @page, FRIENDS_PER_PAGE)
+    friend_list_objs = Friend.friends_list_paginated(current_user, @page, FRIENDS_PER_PAGE)
+    users = grab_user_objects_from(friend_list_objs)
+    @friends_list = friend_list_objs.zip(users)
   end
 
   private
+
+  def grab_user_objects_from(collection)
+    user_objs = collection.map(&:main_user).concat(collection.map(&:friend))
+    user_obj_ids = user_objs.map(&:id)
+    query_user_ids(user_obj_ids)
+  end
 
   def friends_params
     params.permit(:page)

@@ -1,0 +1,42 @@
+<section class="section">
+  <div class="container">
+    <div class="level">
+      <div class="level-item">
+        <h3 class="title is-3 has-text-weight-light">Friends List</h3>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-item">
+        <article>
+          <table class="table is-hoverable">
+            <thead>
+              <tr>
+                <th>Profile Pic</th>
+                <th>Name</th>
+                <th><abbr title="Time since friendship started">Friendship Since</abbr></th>
+              </tr>
+            </thead>
+            <% if @friends_list.size >= 15 %>
+              <tfoot>
+                <tr>
+                  <th>Profile Pic</th>
+                  <th>Username</th>
+                  <th><abbr title="Time since friendship started">Friendship Since</abbr></th>
+                </tr>
+              </tfoot>
+            <% end %>
+            <tbody>
+              <tr>
+                <% @friends_list.each do |friend, user| %>
+                  <td>INSERT IMAGE HERE</td>
+                  <td><%= user.username %></td>
+                  <td><%= time_ago_in_words(friend.created_at) %></td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

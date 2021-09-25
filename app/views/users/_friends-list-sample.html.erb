@@ -1,0 +1,20 @@
+<% friends_list.each do |friend| %>
+  <div class="card">
+    <div class="card-image">
+      <figure>IMAGE</figure>
+    </div>
+    <div class="card-content">
+      <article class="media">
+        <div class="media-content">
+          <div class="content">
+            <p><%= friend.username %> |
+              <%= link_to user_path(friend) do %>
+                <small>Profile</small>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+<% end %>
