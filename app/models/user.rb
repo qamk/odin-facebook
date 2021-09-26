@@ -14,9 +14,12 @@ class User < ApplicationRecord
   has_many :received_requests, class_name: 'FriendRequest', foreign_key: 'receiver_id', dependent: :destroy
   has_many :likes, dependent: :destroy
 
+  has_one_attached :avatar
+
   validates :username, length: { within: 2..50 }, presence: true
   validates :bio, length: { maximum: 275 }
   validates :email, format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  # validate :avatar_data
 
   scope :list_users_in_id_collection, ->(id_collection) { where(id: id_collection) }
   scope :except_user, ->(user) { where.not(id: user.id) }
@@ -30,6 +33,29 @@ class User < ApplicationRecord
   end
 
   private
+
+  CONTENT_TYPE = %w[image/jpeg image/png]
+  MAX_SIZE = 9.megabytes
+  MIN_SIZE = 1.kilobyte
+
+  # def avatar_data
+  #   return unless avatar.attached?
+
+  #   avatar_file_type
+  #   avatar_size
+  # end
+
+  # def avatar_file_type
+  #   unless avatar.image?
+  #     errors.add(:avatar, 'File type must be .jpeg or .png')
+  #   end
+  # end
+
+  # def avatar_size
+  #   unless avatar.blob.byte_size >= MIN_SIZE && avatar.blob.byte_size <= MAX_SIZE
+  #     errors.add(:avatar, 'File size must be between 1kb and 9mb')
+  #   end
+  # end
 
   def strip_name
     username&.strip!

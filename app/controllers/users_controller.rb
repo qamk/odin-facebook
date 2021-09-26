@@ -45,11 +45,13 @@ class UsersController < ApplicationController
 
   # PUT or PATCH /timeline
   def update
-    if @user.update(update_params)
+    valid_upload = UploaderCheckerService.validate(file_data)
+    if valid_upload && @user.update(update_params)
       redirect_to timeline_path, notice: 'Successfully updated timeline'
     else
       flash.now[:error] = 'Failed to update timeline. Please check error messages.'
-      render 'timeline'
+      timeline
+      render :timeline
     end
   end
 
@@ -61,6 +63,12 @@ class UsersController < ApplicationController
 
   def paginate
     @page = params.fetch(:page, 0).to_i
+  end
+
+  def file_data
+    file = params[:user][:avatar]
+    valid_types = %[image/png image/jpeg]
+    { file: file, valid_types: valid_types }
   end
 
   def find_user_friend_ids(user = @user)
@@ -93,7 +101,7 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.require(:user).permit(:bio)
+    params.require(:user).permit(:bio, :avatar)
   end
 
   def search_params

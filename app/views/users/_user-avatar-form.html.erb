@@ -1,0 +1,19 @@
+<%= form_with model: user, url: '/timeline', multipart: true do |form| %>
+
+  <div class="file is-boxed">
+    <label class="file-label">
+      <%# form.file_field :avatar, accept: 'image/jpeg, image/png' %>
+      <input class= "file-input" type="file" name="user[avatar]" id="user_avatar" accept="image/jpeg, image/png">
+      <span class="file-cta">
+        <span class="file-icon">
+          <i>ICON</i>
+        </span>
+        <span class="file-label">
+          Upload avatar
+        </span>
+      </span>
+    </label>
+  </div>
+
+  <%= form.submit 'Change Avatar', class: 'button is-link is-inverted' %>
+<% end %>
