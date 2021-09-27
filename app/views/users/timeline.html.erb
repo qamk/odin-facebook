@@ -1,21 +1,21 @@
 <section class="section">
   <div class="container">
-    <div>
-      <div class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <% if params[:action] == 'edit' %>
-              <%= render 'user-avatar-form', user: @user %>
-            <% else %>
-              <%= render 'user-avatar', user: @user %>
-              <% if @user == current_user %>
-                <%= link_to 'Change avatar (upload)', timeline_edit_path, class: 'button is-info is-inverted is-normal' %>
-              <% end %>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <% if params[:action] == 'edit' %>
+            <%= render 'user-avatar-form', user: @user %>
+          <% elsif @user.avatar.attached? %>
+            <%= render 'user-avatar', user: @user %>
+            <% if @user == current_user %>
+              <%= link_to 'Change avatar (upload)', timeline_edit_path, class: 'button is-info is-inverted is-normal' %>
             <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>
+    <br>
+    <br>
     <div class="columns is-multiline">
       <div class="column is-3">
         <header class="heading is-size-3 has-text-weight-normal">Profile Details</header>
@@ -24,12 +24,14 @@
         <% else %>
           <%= render 'bio', bio: @user.bio, user: @user %>
         <% end %>
-        <header class="heading is-size-3 has-text-weight-normal">Friends List</header>
+          <header class="heading is-size-3 has-text-weight-normal">Friends List</header>
         <%= render 'friends-list-sample', friends_list: @friends_list %>
       </div>
       <div class="column is-6">
-        <%= render 'posts/post-form' %>
-        <br>
+        <% if @user == current_user %>
+          <%= render 'posts/post-form' %>
+          <br>
+        <% end %>
         <header class="heading is-size-4 has-text-weight-normal mb-2"><%= @user.username %>'s Posts</header>
         <%= render 'post-list', posts: @posts %>
           <nav class="level">

@@ -1,0 +1,17 @@
+<%= form_with url: '/users', method: :get do |form| %>
+  <div class="field has-addons">
+    <div class="control">
+      <%= form.text_field :query, placeholder: 'Query the users index', class: 'input' %>
+    </div>
+    <div class="control">
+      <button type="submit" class="button">
+        <span class="icon is-small has-text-info">
+          <%# <i class="fas fa-binoculars"></i> %>
+          <i>Q</i>
+        </span>
+        <span>Query</span>
+      </button>
+    </div>
+  </div>
+
+<% end %>

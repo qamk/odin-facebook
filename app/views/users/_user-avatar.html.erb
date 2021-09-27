@@ -1,5 +1,5 @@
-<figure class="image is-128x128">
+<figure class="image is-64x64">
   <% if user.avatar.attached? %>
-    <%= image_tag user.avatar.variant(resize_to_limit: [256, 256]), alt: 'user avatar' %>
+    <%= image_tag user.avatar.variant(resize_to_limit: [128, 128]), alt: 'user avatar' %>
   <% end %>
 </figure>

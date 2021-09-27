@@ -1,6 +1,7 @@
+# frozen-string-literal: true
+
 # Checks whether user uploads are valid
 class UploaderCheckerService
-
   attr_reader :valid_types, :valid_size, :file
 
   MIN_SIZE = 1.kilobytes
@@ -20,5 +21,4 @@ class UploaderCheckerService
 
     (file.size >= MIN_SIZE) && file.size <= MAX_SIZE
   end
-
 end

@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -29,49 +30,53 @@
     <nav class="navbar is-fixed-top">
       <div class="navbar-brand">
         <div class="navbar-item">
+          <% if user_signed_in? %>
           <%= link_to root_path do %>
             <h4 class="title is-4 is-family-code has-text-weight-light has-text-info ml-4">OdinFacebook</h4>
+          <% end %>
+          <% else %>
+            <h4 class="title is-4 is-family-code has-text-weight-light has-text-info ml-4">OdinFacebook</h4> 
           <% end %>
         </div>
       </div>
       <div class="navbar-end mr-6">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <div class="navbar-link">
-            <div class="navbar-item has-text-weight-normal">
-              <%= current_user.username %>
+        <% if user_signed_in? %>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <div class="navbar-link">
+                <div class="navbar-item has-text-weight-normal">
+                  <%= current_user.username %>
+                </div>
+              </div>
+              <div class="navbar-dropdown">
+                <%= link_to current_user, class: 'navbar-item' do %>
+                  <p class="content is-medium">Timeline</p>
+                <% end %>
+                <%= link_to friend_requests_path, class: 'navbar-item' do %>
+                  <p class="content is-medium">Friend Requests</p>
+                <% end %>
+                <%= link_to friends_list_path, class: 'navbar-item' do %>
+                  <p class="content is-medium">Friends List</p>
+                <% end %>
+                <hr class="navbar-divider">
+                <%= link_to users_path, class: 'navbar-item' do %>
+                  <p class="content is-medium">Users Index</p>
+                <% end %>
+                <%= link_to edit_user_registration_path, class: 'navbar-item' do %>
+                  <p class="content is-medium">Edit Account</p>
+                <% end %>
+                <%= link_to destroy_user_session_path, method: :delete, class: 'navbar-item' do  %>
+                  <p class="content is-medium">Logout</p>
+                <% end %>
+              </div>
             </div>
-          </div>
-          <div class="navbar-dropdown">
-            <% if user_signed_in? %>
-              <%= link_to current_user, class: 'navbar-item' do %>
-                <p class="content is-medium">Timeline</p>
-              <% end %>
-              <%= link_to friend_requests_path, class: 'navbar-item' do %>
-                <p class="content is-medium">Friend Requests</p>
-              <% end %>
-              <%= link_to friends_list_path, class: 'navbar-item' do %>
-                <p class="content is-medium">Friends List</p>
-              <% end %>
-              <hr class="navbar-divider">
-              <%= link_to users_path, class: 'navbar-item' do %>
-                <p class="content is-medium">Users Index</p>
-              <% end %>
-              <%= link_to edit_user_registration_path, class: 'navbar-item' do %>
-                <p class="content is-medium">Edit Account</p>
-              <% end %>
-              <%= link_to destroy_user_session_path, method: :delete, class: 'navbar-item' do  %>
-                <p class="content is-medium">Logout</p>
-              <% end %>
-            <% else %>
-              <%= link_to new_user_session_path, class: 'navbar-item' do %>
-                <p class="content is-medium">Sign In</p>
-              <% end %>
-              <%= link_to new_user_registration_path, class: 'navbar-item' do %>
-                <p class="content is-medium">Sign Up</p>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+        <% else %>
+                <%= link_to new_user_session_path, class: 'navbar-item' do %>
+                  <p class="content is-medium has-text-link-dark">Sign In</p>
+                <% end %>
+                <%= link_to new_user_registration_path, class: 'navbar-item' do %>
+                  <p class="content is-medium has-text-success-dark">Sign Up</p>
+                <% end %>
+        <% end %>
       </div>
     </nav>
      <hr style="border-width:1px;">

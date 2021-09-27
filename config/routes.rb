@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :friends, only: %i[destroy]
   get '/friends-list', to: 'friends#friends_list'
   # Friend Request routes
-  resources :friend_requests, only: %i[index create update]
+  resources :friend_requests, only: %i[index create update destroy]
   # Post and Comments routes
   resources :posts, except: %i[index new] do
     resources :comments, only: %i[edit create update destroy]

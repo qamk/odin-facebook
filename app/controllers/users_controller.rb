@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = \
-      User.search(params[:query]).for_page(@page, USER_INDEX_PER_PAGE).except_user(current_user).includes(:friends)
+      User.search(params[:query]).for_page(@page, USER_INDEX_PER_PAGE).except_user(@user).includes(:friends)
     grab_mini_friends_list
     @requests = grab_pending_friend_requests
   end
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   # PUT or PATCH /timeline
   def update
-    valid_upload = UploaderCheckerService.validate(file_data)
+    valid_upload = valid_file_data?
     if valid_upload && @user.update(update_params)
       redirect_to timeline_path, notice: 'Successfully updated timeline'
     else
@@ -65,10 +65,13 @@ class UsersController < ApplicationController
     @page = params.fetch(:page, 0).to_i
   end
 
-  def file_data
+  def valid_file_data?
     file = params[:user][:avatar]
-    valid_types = %[image/png image/jpeg]
-    { file: file, valid_types: valid_types }
+    return true unless file
+
+    valid_types = %w[image/png image/jpeg]
+    hash = { file: file, valid_types: valid_types }
+    UploaderCheckerService.validate(hash)
   end
 
   def find_user_friend_ids(user = @user)
@@ -105,6 +108,6 @@ class UsersController < ApplicationController
   end
 
   def search_params
-    params.requre(:serach).permit(:query)
+    params.permit(:query)
   end
 end

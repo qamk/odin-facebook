@@ -1,4 +1,5 @@
 class FriendRequestsController < ApplicationController
+  before_action :grab_request, except: %i[index create]
 
   REQUESTS_PER_PAGE = 8
 
@@ -18,7 +19,6 @@ class FriendRequestsController < ApplicationController
   end
 
   def update
-    @friend_request = FriendRequest.find(params[:id])
     if @friend_request.update(request_params)
       redirect_to root_path, notice: 'Made a new friend :-)'
     else
@@ -29,7 +29,24 @@ class FriendRequestsController < ApplicationController
 
   # destroy requests *sent* by current_user
 
+  def destroy
+    if request_sender? && @friend_request.destroy
+      redirect_back fallback_location: '/', allow_other_hosts: false, notice: 'Deleted the friend request'
+    else
+      flash[:error] = 'Failed to deelete friend request'
+      redirect_to friends_list_path
+    end
+  end
+
   private
+
+  def grab_request
+    @friend_request = FriendRequest.find(params[:id])
+  end
+
+  def request_sender?
+    @friend_request.sender == current_user
+  end
 
   def grab_data_for_tab
     tab_params_hash = tab_params

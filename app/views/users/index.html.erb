@@ -2,6 +2,11 @@
   <div class="container">
     <div class="level">
       <div class="level-item">
+        <%= render 'search-form' %>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-item">
         <article>
           <table class="table is-narrow is-hoverable">
             <thead>
@@ -23,22 +28,22 @@
               </tfoot>
             <% end %>
             <tbody>
-              <tr>
-                <% @users.each do |user| %>
-                  <td><%= user.username %></td>
-                  <td><%= user.friends.count %></td>
-                  <td><%= time_ago_in_words(user.created_at) %></td>
-                  <td>
-                    <% if  @requests.include?(user) %>
-                      A request is pending!
-                    <% elsif @friends_list.include?(user) %>
-                      Already friends!
-                    <% else %>
-                      <%= render 'friend_requests/requests-send', user: user %>
-                    <% end %>
-                  </td>
-                <% end %>
-              </tr>
+              <% @users.each do |user| %>
+                <tr>
+                    <td><%= user.username %></td>
+                    <td><%= user.friends.count %></td>
+                    <td><%= time_ago_in_words(user.created_at) %> ago</td>
+                    <td>
+                      <% if  @requests.include?(user) %>
+                        A request is pending!
+                      <% elsif @friends_list.include?(user) %>
+                        Already friends!
+                      <% else %>
+                        <%= render 'friend_requests/request-send', user: user %>
+                      <% end %>
+                    </td>
+                </tr>
+              <% end %>
             </tbody>
           </table>
         </article>

@@ -4,6 +4,11 @@
   <%= form.hidden_field :user_id, value: current_user.id %>
 
   <%= button_tag type: 'submit', class: 'button is-text' do %>
-    <i>like icon <%=type.likes.size %></i>
+    <span class="icon-text">
+      <span class="icon has-text-info">
+        <i class="fas fa-heartbeat"></i>
+      </span>
+      <span><%= type.likes.size %></span>
+    </span>
   <% end %>
 <% end %>
