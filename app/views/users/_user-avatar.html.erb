@@ -1,6 +1,5 @@
 <figure class="image is-128x128">
   <% if user.avatar.attached? %>
-    <%= image_tag user.avatar.variant(resize_to_limit: [256, 256], class: 'is-rounded') %>
+    <%= image_tag user.avatar.variant(resize_to_limit: [256, 256]), alt: 'user avatar' %>
   <% end %>
-    <%= link_to 'Change avatar (upload)', timeline_edit_path, class: 'button is-info is-inverted is-normal' %>
 </figure>

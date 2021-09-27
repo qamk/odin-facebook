@@ -1,6 +1,6 @@
 <section class="section">
   <div class="container">
-    <div class="box">
+    <div>
       <div class="level">
         <div class="level-left">
           <div class="level-item">
@@ -8,6 +8,9 @@
               <%= render 'user-avatar-form', user: @user %>
             <% else %>
               <%= render 'user-avatar', user: @user %>
+              <% if @user == current_user %>
+                <%= link_to 'Change avatar (upload)', timeline_edit_path, class: 'button is-info is-inverted is-normal' %>
+              <% end %>
             <% end %>
           </div>
         </div>

@@ -34,9 +34,9 @@ class User < ApplicationRecord
 
   private
 
-  CONTENT_TYPE = %w[image/jpeg image/png]
-  MAX_SIZE = 9.megabytes
-  MIN_SIZE = 1.kilobyte
+  # CONTENT_TYPE = %w[image/jpeg image/png]
+  # MAX_SIZE = 9.megabytes
+  # MIN_SIZE = 1.kilobyte
 
   # def avatar_data
   #   return unless avatar.attached?

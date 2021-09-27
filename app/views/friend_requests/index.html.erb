@@ -16,7 +16,8 @@
       <% @requests.each do |request, user| %>
         <article class="media">
           <div class="media-left">
-            <figure>INSERT IMAGE HERE</figure>
+            <%# <figure>INSERT IMAGE HERE</figure> %>
+            <%= render 'users/user-avatar', user: user %>
           </div>
           <media-content>
             <div class="content is-large">
