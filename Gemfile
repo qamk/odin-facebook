@@ -31,8 +31,11 @@ gem 'better_errors', group: :development
 gem 'binding_of_caller', group: :development
 gem 'bulma-rails'
 gem 'letter_opener', group: :development
-# gem 'omniauth-facebook'
-# gem 'omniauth-rails_csrf_protection'
+gem "aws-sdk-s3", require: false
+# Facebook requires https for Facebook Login, so I have left it
+# I may try and use omniauth with Github instead at a later date, since the process is familiar to me now! 
+  # gem 'omniauth-facebook'
+  # gem 'omniauth-rails_csrf_protection'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

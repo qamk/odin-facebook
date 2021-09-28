@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OdinFacebook</title>
+    <title>OdinSocial</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -32,10 +32,10 @@
         <div class="navbar-item">
           <% if user_signed_in? %>
           <%= link_to root_path do %>
-            <h4 class="title is-4 is-family-code has-text-weight-light has-text-info ml-4">OdinFacebook</h4>
+            <h4 class="title is-4 is-family-code has-text-weight-light has-text-info ml-4">OdinSocial</h4>
           <% end %>
           <% else %>
-            <h4 class="title is-4 is-family-code has-text-weight-light has-text-info ml-4">OdinFacebook</h4> 
+            <h4 class="title is-4 is-family-code has-text-weight-light has-text-info ml-4">OdinSocial</h4> 
           <% end %>
         </div>
       </div>
