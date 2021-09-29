@@ -37,3 +37,5 @@ For a list of resources please see discussion.md
 
 ## Final comment
 This project was quite enjoyable, getting the core functionality, thinking about the data architecture and writing unit tests using TDD were relatively easy at this point. However, things like the interface, getting acquainted with ActiveStorage, writing a good (even if simple) service and generally resolving unexpected issues were not as familiar. This was a great mixture of applying familiar skills and extending my own skillset in one project!
+
+I will be reading Sandi Metz's *Practical Object Oriented Design* to learn how to best used Object Oriented Design (OOD) to make better, more adaptable code!
