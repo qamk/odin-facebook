@@ -48,6 +48,9 @@
                 </div>
               </div>
               <div class="navbar-dropdown">
+                <%= link_to root_path, class: 'navbar-item' do %>
+                  <p class="content is-medium">Feed</p>
+                <% end %>
                 <%= link_to current_user, class: 'navbar-item' do %>
                   <p class="content is-medium">Timeline</p>
                 <% end %>
@@ -71,7 +74,7 @@
             </div>
         <% else %>
                 <%= link_to new_user_session_path, class: 'navbar-item' do %>
-                  <p class="content is-medium has-text-link-dark">Sign In</p>
+                  <p class="content is-medium has-text-link-dark">Log In</p>
                 <% end %>
                 <%= link_to new_user_registration_path, class: 'navbar-item' do %>
                   <p class="content is-medium has-text-success-dark">Sign Up</p>

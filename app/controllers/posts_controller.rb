@@ -45,7 +45,7 @@ class PostsController < ApplicationController
   end
 
   def grab_post
-    @post = Post.find(params[:id])
+    @post = Post.includes(:user).find(params[:id])
   end
 
   def post_params

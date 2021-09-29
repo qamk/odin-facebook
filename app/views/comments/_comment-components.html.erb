@@ -1,0 +1,16 @@
+<% if comment.commenter == current_user %>
+  <div class="level-item">
+    <%= link_to edit_post_comment_path(post, comment) do %>
+      <span class="icon has-text-warning">
+        <i class="fas fa-pencil fa-border"></i>
+      </span>
+    <% end %>
+  </div>
+  <div class="level-item">
+    <%= link_to post_comment_path(post, comment), method: :delete do %>
+      <span class="icon has-text-danger">
+        <i class="fas fa-trash fa-border"></i>
+      </span>
+    <% end %>
+  </div>
+<% end %>

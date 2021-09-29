@@ -21,6 +21,7 @@
                 <div class="level-left">
                   <div class="level-item">
                     <%= render 'likes/like-form', type: comment %>
+                    <%= render 'comments/comment-components', comment: comment, post: post %>
                   </div>
                 </div>
               </div>
@@ -32,7 +33,7 @@
             </div>
           </article>
         <% end %>
-        <%= render 'comments/comment-form', post: post %>
+        <%= render 'comments/comment-form', post: post, comment: Comment.new %>
       </div>
     </div>
   </div>

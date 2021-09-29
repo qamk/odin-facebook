@@ -29,7 +29,7 @@
       </div>
       <div class="column is-6">
         <% if @user == current_user %>
-          <%= render 'posts/post-form' %>
+          <%= render 'posts/post-form', post: Post.new %>
           <br>
         <% end %>
         <header class="heading is-size-4 has-text-weight-normal mb-2"><%= @user.username %>'s Posts</header>

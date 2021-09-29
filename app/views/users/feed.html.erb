@@ -6,7 +6,7 @@
 <div class="container">
   <div class="columns">
     <div class="column is-9">
-          <%= render 'posts/post-form', user: @user %>
+          <%= render 'posts/post-form', post: Post.new %>
           <br>
           <%= render 'post-list', posts: @feed_posts %>
             <nav class="level">

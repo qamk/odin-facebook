@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
 
   # DELETE post/:post_id/comment/:id
   def destroy
-    redirect_to :back unless authorized_user?
+    redirect_back fallback_location: '/', allow_other_hosts: false unless authorized_user?
     if @comment.destroy
       redirect_to post_path(@post), notice: 'Successfully deleted comment'
     else
@@ -41,15 +41,15 @@ class CommentsController < ApplicationController
   private
 
   def authorized_user?
-    (current_user == comment.user) #|| (current_user == post.user)
+    (current_user == @comment.commenter) #|| (current_user == post.user)
   end
 
   def grab_post
-    @post = Post.find(params[:post_id])
+    @post = Post.includes(:user).find(params[:post_id])
   end
 
   def grab_comment
-    @comment = Comment.find(params[:post_id])
+    @comment = Comment.find(params[:id])
   end
 
   def comment_params

@@ -1,0 +1,16 @@
+<% if post.user == current_user %>
+  <div class="level-item">
+    <%= link_to edit_post_path(post) do %>
+      <span class="icon has-text-warning mr-3">
+        <i class="fas fa-pencil"></i>
+      </span>
+    <% end %>
+  </div>
+  <div class="level-item">
+    <%= link_to post_path(post), method: :delete do %>
+      <span class="icon has-text-danger">
+        <i class="fas fa-trash"></i>
+      </span>
+    <% end %>
+  </div>
+<% end %>

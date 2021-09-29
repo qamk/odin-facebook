@@ -1,6 +1,6 @@
 <article>
   <br>
-  <%= form_with model: [post, Comment.new] do |form| %>
+  <%= form_with model: [post, comment] do |form| %>
     <%= form.hidden_field :post_id, value: post.id %>
     <%= form.hidden_field :commenter_id, value: current_user.id %>
     <div class="field">
@@ -10,6 +10,6 @@
       </div>
     </div>
 
-    <%= form.submit 'New comment', class: 'button is-success is-dark' %>
+    <%= form.submit class: 'button is-success is-dark' %>
   <% end %>
 </article>

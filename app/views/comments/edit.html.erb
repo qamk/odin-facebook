@@ -1,0 +1,33 @@
+<section class="section">
+  <div class="container">
+    <div class="level">
+      <div class="level-item">
+        <h2 class="title is-2 has-text-weight-light">Edit your comment</h2>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-item">
+        <article class="message">
+          <div class="message-header">
+            <%= @post.user.username %> writes:
+          </div>
+          <div class="message-body">
+            <%= @post.body %>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-item">
+        <%= render 'comment-form', post: @post, comment: @comment %>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <%= link_to 'Back to post', post_path(@post), class: 'button is-link is-inverted' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
