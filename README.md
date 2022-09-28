@@ -1,7 +1,7 @@
 # Odin-Facebook (OdinSocial)
 This project's aim was to create a social media site similar to Facebook (hence the name). It needed to have the basic functions of Facebook (e.g. Friends & Friend Requests) and capabilities typical to social media sites in general (i.e. users can interact with each other). [Live on Heroku](https://radiant-sea-74387.herokuapp.com/timeline).
 
-This project was made using Rails 6.1 with Ruby version 3.0. Styling is done using Bulma. AWS S3 for storing user avatars. Unit tests (TDD) for the models written using Minitest. 
+This project was made using Rails 6.1 with Ruby version 3.0. Styling is done using Bulma. AWS S3 for storing user avatars*. Unit tests (TDD) for the models written using Minitest.
 
 Please refer to the Gemfile for complete information on the dependencies.
 
@@ -49,3 +49,5 @@ The following were a great help:
 This project was quite enjoyable, getting the core functionality, thinking about the data architecture and writing unit tests using TDD were relatively easy at this point. However, things like the interface, getting acquainted with ActiveStorage, writing a good (even if simple) service and generally resolving unexpected issues were not as familiar. This was a great mixture of applying familiar skills and extending my own skillset in one project!
 
 I will be reading Sandi Metz's *Practical Object Oriented Design* to learn how to best used Object Oriented Design (OOD) to make better, more adaptable code!
+
+\* My free tier for AWS S3 has run its course so this will be terminated. The code will fall to using another storage method but this app will reach EoL soon.
