@@ -1,5 +1,5 @@
 # Odin-Facebook (OdinSocial)
-This project's aim was to create a social media site similar to Facebook (hence the name). It needed to have the basic functions of Facebook (e.g. Friends & Friend Requests) and capabilities typical to social media sites in general (i.e. users can interact with each other). [Live on Heroku](https://radiant-sea-74387.herokuapp.com/timeline).
+This project's aim was to create a social media site similar to Facebook (hence the name). It needed to have the basic functions of Facebook (e.g. Friends & Friend Requests) and capabilities typical to social media sites in general (i.e. users can interact with each other). The previous live application link has been removed as (i) I deleted my free-tier AWS account and (ii) Heroku is no longer free.
 
 This project was made using Rails 6.1 with Ruby version 3.0. Styling is done using Bulma. AWS S3 for storing user avatars*. Unit tests (TDD) for the models written using Minitest.
 
